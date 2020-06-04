@@ -28,6 +28,8 @@ function processFirstItem(stringList, callback) {
  * 
  * 1. What is the difference between counter1 and counter2?
  * 
+ * ---In counter2 code, the variable count is being determined on the global level while in counter1 code it is determined within the counterMaker function. 
+ * 
  * 2. Which of the two uses a closure? How can you tell?
  * 
  * 3. In what scenario would the counter1 code be preferable? In what scenario would counter2 be better? 
@@ -56,11 +58,18 @@ function counter2() {
 
 Write a function called `inning` that generates a random number of points that a team scored in an inning. This should be a whole number between 0 and 2. */
 
-function inning(/*Code Here*/){
-
-    /*Code Here*/
-
+function inning() {
+  return Math.floor(Math.random() * Math.floor(2));
 }
+
+console.log("Task #2");
+console.log(inning());
+console.log(inning());
+console.log(inning());
+console.log(inning());
+console.log(inning());
+
+
 
 /* Task 3: finalScore()
 
@@ -76,11 +85,22 @@ finalScore(inning, 9) might return:
 
 */ 
 
-function finalScore(/*code Here*/){
-
-  /*Code Here*/
-
+function finalScore(cb, num) {
+  let home = 0;
+  let away = 0;
+  for(let i=0; i < num; i++) {
+    home += cb();
+    away += cb();
+  }
+  return {
+    'home': home,
+    'away': away
+  };
 }
+
+
+console.log("Task #3");
+console.log(finalScore(inning, 100));
 
 /* Task 4: 
 
@@ -103,8 +123,16 @@ and returns the score at each pont in the game, like so:
 
 Final Score: 6 - 10 */
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+
+function scoreboard(cb, num) {
+  let home = 0;
+  let away = 0;
+  for(let i=0; i < num; i++) {
+    home += cb();
+    away += cb();
+    console.log(`#${i+1} inning: ${home} - ${away}`)
+  }
+  return `Final Score: ${home} - ${away}`;
 }
-
-
+console.log("Task #4");
+console.log(scoreboard(inning, 5));
